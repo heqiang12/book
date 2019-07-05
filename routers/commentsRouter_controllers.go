@@ -52,6 +52,33 @@ func init() {
             Filters: nil,
             Params: nil})
 
+    beego.GlobalControllerRouter["bookapi/controllers:SourceController"] = append(beego.GlobalControllerRouter["bookapi/controllers:SourceController"],
+        beego.ControllerComments{
+            Method: "Get",
+            Router: `/:sid`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["bookapi/controllers:SourceController"] = append(beego.GlobalControllerRouter["bookapi/controllers:SourceController"],
+        beego.ControllerComments{
+            Method: "Index",
+            Router: `/index/:sid`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["bookapi/controllers:SourceController"] = append(beego.GlobalControllerRouter["bookapi/controllers:SourceController"],
+        beego.ControllerComments{
+            Method: "Lock",
+            Router: `/lock`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
     beego.GlobalControllerRouter["bookapi/controllers:UserController"] = append(beego.GlobalControllerRouter["bookapi/controllers:UserController"],
         beego.ControllerComments{
             Method: "Post",
