@@ -9,9 +9,8 @@ package routers
 
 import (
 	"bookapi/controllers"
-
 	"github.com/astaxie/beego"
-)
+	)
 
 func init() {
 	ns := beego.NewNamespace("/v1",
@@ -30,6 +29,12 @@ func init() {
 				&controllers.SourceController{},
 			),
 		),
+		beego.NSNamespace("/test",
+			beego.NSInclude(
+				&controllers.TestController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
+	//beego.AutoRouter(&controllers.SourceController{})
 }

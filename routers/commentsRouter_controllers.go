@@ -54,8 +54,8 @@ func init() {
 
     beego.GlobalControllerRouter["bookapi/controllers:SourceController"] = append(beego.GlobalControllerRouter["bookapi/controllers:SourceController"],
         beego.ControllerComments{
-            Method: "Get",
-            Router: `/:sid`,
+            Method: "Data",
+            Router: `/data`,
             AllowHTTPMethods: []string{"get"},
             MethodParams: param.Make(),
             Filters: nil,
@@ -64,16 +64,16 @@ func init() {
     beego.GlobalControllerRouter["bookapi/controllers:SourceController"] = append(beego.GlobalControllerRouter["bookapi/controllers:SourceController"],
         beego.ControllerComments{
             Method: "Index",
-            Router: `/index/:sid`,
+            Router: `/index`,
             AllowHTTPMethods: []string{"get"},
             MethodParams: param.Make(),
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["bookapi/controllers:SourceController"] = append(beego.GlobalControllerRouter["bookapi/controllers:SourceController"],
+    beego.GlobalControllerRouter["bookapi/controllers:TestController"] = append(beego.GlobalControllerRouter["bookapi/controllers:TestController"],
         beego.ControllerComments{
-            Method: "Lock",
-            Router: `/lock`,
+            Method: "Index",
+            Router: `/index`,
             AllowHTTPMethods: []string{"get"},
             MethodParams: param.Make(),
             Filters: nil,

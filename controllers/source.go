@@ -1,68 +1,63 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
+	"strconv"
 )
+
+func init() {
+	orm.RegisterModel(new(Source))
+}
 
 // Operations about Users
 type SourceController struct {
 	beego.Controller
 }
 
-// @Title CreateUser
-// @Description create users
-// @Param	body		body 	models.User	true		"body for user content"
-// @Success 200 {int} models.User.Id
-// @Failure 403 body is empty
-// @router / [post]
-//func (u *SourceController) Post() {
-//	var user models.User
-//	json.Unmarshal(u.Ctx.Input.RequestBody, &user)
-//	uid := models.AddUser(user)
-//	u.Data["json"] = map[string]string{"uid": uid}
-//	u.ServeJSON()
-//}
-
-// @Title GetAll
-// @Description get all Users
-// @Success 200 {object} models.User
-// @router / [get]
-//func (u *SourceController) GetAll() {
-//	sources := models.GetAllSources()
-//	u.Data["json"] = sources
-//	u.ServeJSON()
-//}
-
-
-//@router /:sid [get]
-func (u *SourceController) Get() {
-	sid := u.GetString(":sid")
-	u.Data["json"] = sid
-	u.ServeJSON()
-	//sid := u.GetString(":sid")
-	//if sid != "" {
-	//	source := models.GetSource(1)
-	//	//if err != nil {
-	//	//	u.Data["json"] = err.Error()
-	//	//} else {
-	//	//	u.Data["json"] = source
-	//	//}
-	//	u.Data["json"] = source
-	//}
-	//u.ServeJSON()
+type Source struct {
+	Id       int
+	Name	 string
+	Url		 string
+	SearchUrl string
+	ContentRule string
+	ChapterRule string
 }
 
-//@router /index/:sid [get]
+//@router /index [get]
 func (u *SourceController) Index() {
-	sid := u.GetString(":sid")
-	u.Data["json"] = sid
-	u.ServeJSON()
+	sid := u.GetString("sid")
+	//u.Ctx.WriteString("传达室")
+	id, _ := strconv.Atoi(sid)
+	//models.GetSource(1)
+	//u.Ctx.WriteString(id)
+	o := orm.NewOrm()
+	source := Source{Id: id}
+
+	err := o.Read(&source)
+	if err == orm.ErrNoRows {
+		fmt.Println("查询不到")
+	} else if err == orm.ErrMissPK {
+		fmt.Println("找不到主键")
+	} else {
+		//fmt.Println(source.Id, source.Name)
+		u.Ctx.WriteString(source.Name)
+	}
 }
 
-//@router /lock [get]
-func (u *SourceController) Lock()  {
-	u.Data["json"] = "lock"
-	u.ServeJSON()
+//@router /data [get]
+func (u *SourceController) Data()  {
+	u.Ctx.WriteString("年水电费")
+	//url := "http://www.xbiquge.la/13/13959/"
+	////html := httplib.Get(url)
+	////dom,err:=goquery.NewDocumentFromReader(strings.NewReader(html))
+	//dom,err := goquery.NewDocument(url)
+	//if err!=nil{
+	//	log.Fatalln(err)
+	//}
+	//dom.Find("#info > h1").Each(func(i int, selection *goquery.Selection) {
+	//	//fmt.Println(selection.Text())
+	//	u.Ctx.WriteString(selection.Text())
+	//})
 }
-
-
