@@ -2,8 +2,10 @@ package controllers
 
 import (
 	"fmt"
+	"github.com/PuerkitoBio/goquery"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	"log"
 	"strconv"
 )
 
@@ -48,16 +50,20 @@ func (u *SourceController) Index() {
 
 //@router /data [get]
 func (u *SourceController) Data()  {
-	u.Ctx.WriteString("年水电费")
-	//url := "http://www.xbiquge.la/13/13959/"
-	////html := httplib.Get(url)
-	////dom,err:=goquery.NewDocumentFromReader(strings.NewReader(html))
-	//dom,err := goquery.NewDocument(url)
-	//if err!=nil{
-	//	log.Fatalln(err)
-	//}
-	//dom.Find("#info > h1").Each(func(i int, selection *goquery.Selection) {
-	//	//fmt.Println(selection.Text())
-	//	u.Ctx.WriteString(selection.Text())
-	//})
+	//u.Ctx.WriteString("年水电费")
+	url := "https://www.daocaorenshuwu.com/plus/search.php?q=鬼"
+	//html := httplib.Get(url)
+	//dom,err:=goquery.NewDocumentFromReader(strings.NewReader(html))
+	dom,err := goquery.NewDocument(url)
+	if err!=nil{
+		log.Fatalln(err)
+	}
+	dom.Find(".table-condensed tbody tr td:first-child > a[class=orange]").Each(func(i int, selection *goquery.Selection) {
+		//fmt.Println(selection.Text())
+		//u.Ctx.WriteString(selection.Text())
+		title,_ := selection.Attr("title")
+		url,_ := selection.Attr("href")
+		fmt.Println(title)
+		fmt.Println(url)
+	})
 }
