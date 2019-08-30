@@ -70,6 +70,15 @@ func init() {
             Filters: nil,
             Params: nil})
 
+    beego.GlobalControllerRouter["bookapi/controllers:SourceController"] = append(beego.GlobalControllerRouter["bookapi/controllers:SourceController"],
+        beego.ControllerComments{
+            Method: "Search",
+            Router: `/search`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
     beego.GlobalControllerRouter["bookapi/controllers:TestController"] = append(beego.GlobalControllerRouter["bookapi/controllers:TestController"],
         beego.ControllerComments{
             Method: "Index",
